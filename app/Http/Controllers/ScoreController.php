@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\InstrumentScoreResource;
 use App\Http\Resources\ScoreResource;
+use App\Models\InstrumentScore;
 use App\Models\Score;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 
 class ScoreController extends Controller
 {
@@ -62,5 +65,20 @@ class ScoreController extends Controller
     public function destroy(Score $score)
     {
         //
+    }
+
+    /**
+     * Returns a JSON object of the instrumentation for the provided score.
+     *
+     * @param Request $request
+     * @param string $id
+     * @return AnonymousResourceCollection
+     */
+    public function getInstrumentation(Request $request, string $id) : AnonymousResourceCollection
+    {
+        $instruments = InstrumentScore::where('score_id', $id)
+            ->get();
+
+        return InstrumentScoreResource::collection($instruments);
     }
 }

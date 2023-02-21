@@ -27,6 +27,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('score/{id}/instruments', [ScoreController::class, 'getInstrumentation']);
+
 //API Resources
 Route::apiResource('ensemble_type', EnsembleTypeController::class);
 Route::apiResource('ensemble', EnsembleController::class);

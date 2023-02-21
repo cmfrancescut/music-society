@@ -33,6 +33,7 @@ class ScoreResource extends JsonResource
             'composer' => new ComposerResource(Composer::findOrFail($this->composer_id)),
             'ensemble_type' => new EnsembleTypeResource(EnsembleType::findOrFail($this->ensemble_type_id)),
             'publisher' => new PublisherResource(Publisher::findOrFail($this->publisher_id)),
+            'difficulty' => $this->difficulty,
             'checked_out' => (bool)MusicCheckout::where(['score_id' => $this->id, 'checked_in' => null])->first(),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

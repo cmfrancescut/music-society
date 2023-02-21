@@ -24,7 +24,8 @@ class ScoreFactory extends Factory
             'complete_score' => fake()->boolean(),
             'composer_id' => fake()->numberBetween(1, 5),
             'ensemble_type_id' => fake()->numberBetween(1, 4),
-            'publisher_id' => fake()->numberBetween(1, 5)
+            'publisher_id' => fake()->numberBetween(1, 5),
+            'difficulty' => 'Grade ' . fake()->numberBetween(1, 5)
         ];
     }
 }

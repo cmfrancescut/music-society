@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,8 +17,8 @@ class InstrumentScore extends Pivot
         'filename'
     ];
 
-    public function instruments(): HasOne {
-        return $this->hasOne(Instrument::class);
+    public function instruments(): HasMany {
+        return $this->hasMany(Instrument::class);
     }
 
     public function scores(): HasOne {

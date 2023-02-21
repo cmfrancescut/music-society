@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Instrument;
+use App\Models\Score;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -24,8 +26,8 @@ class InstrumentScoreResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'score_id' => ScoreResource::collection($this->score_id),
-            'instrument_id' => InstrumentResource::collection($this->instrument_id),
+            'score_id' => $this->score_id,
+            'instrument_id' => new InstrumentResource(Instrument::findOrFail($this->instrument_id)),
             'filename' => $this->filename,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('complete_score');
+            $table->string('difficulty');
             $table->foreignIdFor(Composer::class);
             $table->foreignIdFor(EnsembleType::class);
             $table->foreignIdFor(Publisher::class);
