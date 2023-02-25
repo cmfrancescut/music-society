@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Composer;
+use App\Models\Difficulty;
 use App\Models\Ensemble;
 use App\Models\EnsembleType;
 use App\Models\Instrument;
@@ -13,8 +14,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -26,7 +26,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->boolean('complete_score');
-            $table->string('difficulty');
+            $table->foreignIdFor(Difficulty::class);
             $table->foreignIdFor(Composer::class);
             $table->foreignIdFor(EnsembleType::class);
             $table->foreignIdFor(Publisher::class);
@@ -34,37 +34,43 @@ return new class extends Migration
             $table->softDeletes();
         });
 
+        Schema::create('difficulty', function (Blueprint $table) {
+            $table->id();
+            $table->string('difficulty_description');
+        });
+
         Schema::create('composers', function (Blueprint $table) {
-           $table->id();
-           $table->string('first_name');
-           $table->string('last_name');
-           $table->date('date_of_birth')->nullable('true');
-           $table->date('date_of_death')->nullable('true');
-           $table->timestamps();
+            $table->id();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->date('date_of_birth')->nullable('true');
+            $table->date('date_of_death')->nullable('true');
+            $table->timestamps();
             $table->softDeletes();
         });
 
         Schema::create('publishers', function (Blueprint $table) {
-           $table->id();
-           $table->string('publisher_name');
+            $table->id();
+            $table->string('publisher_name');
             $table->timestamps();
             $table->softDeletes();
         });
 
         Schema::create('ensemble_types', function (Blueprint $table) {
-           $table->id();
-           $table->string('ensemble_type');
+            $table->id();
+            $table->string('music_type'); // Instrumental, choral, etc.
+            $table->string('ensemble_type'); // Concert band, string orchestra, SATB choir, etc.
             $table->timestamps();
             $table->softDeletes();
         });
 
         Schema::create('ensembles', function (Blueprint $table) {
-           $table->id();
-           $table->string('ensemble_name');
-           $table->foreignIdFor(EnsembleType::class);
-           $table->string('ensemble_description')->nullable('true');
-           $table->foreignIdFor(Rehearsal::class);
-           $table->timestamps();
+            $table->id();
+            $table->string('ensemble_name');
+            $table->foreignIdFor(EnsembleType::class);
+            $table->string('ensemble_description')->nullable('true');
+            $table->foreignIdFor(Rehearsal::class);
+            $table->timestamps();
             $table->softDeletes();
         });
 
@@ -98,10 +104,10 @@ return new class extends Migration
         });
 
         Schema::create('role', function (Blueprint $table) {
-           $table->id();
-           $table->string('role_name');
-           $table->string('permissions');
-           $table->timestamps();
+            $table->id();
+            $table->string('role_name');
+            $table->string('permissions');
+            $table->timestamps();
             $table->softDeletes();
         });
 

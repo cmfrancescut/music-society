@@ -22,7 +22,8 @@ class Score extends Model
         'complete_score',
         'composer_id',
         'ensemble_type_id',
-        'publisher_id'
+        'publisher_id',
+        'difficulty_id'
     ];
 
     public function composer(): belongsTo {
@@ -43,5 +44,9 @@ class Score extends Model
 
     public function musicCheckouts(): BelongsToMany {
         return $this->belongsToMany(MusicCheckout::class);
+    }
+
+    public function difficulty(): BelongsTo {
+        return $this->belongsTo(Difficulty::class);
     }
 }

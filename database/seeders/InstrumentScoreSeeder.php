@@ -16,13 +16,7 @@ class InstrumentScoreSeeder extends Seeder
      */
     public function run(): void
     {
-        //Create Scores
-        $scores = Score::factory()
-            ->count(25)
-            ->create([
-                'complete_score' => true
-            ]);
-
+        $scores = Score::all();
         foreach ($scores as $score) {
             switch ($score->ensemble_type_id) {
                 case 1:

@@ -14,13 +14,15 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+           ScoreSeeder::class,
            ComposerSeeder::class,
            EnsembleSeeder::class,
            RehearsalSeeder::class,
            EnsembleTypeSeeder::class,
            InstrumentSeeder::class,
            InstrumentScoreSeeder::class,
-           PublisherSeeder::class
+           PublisherSeeder::class,
+           DifficultySeeder::class
         ]);
     }
 }
